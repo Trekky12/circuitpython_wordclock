@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>WordClock Controller</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+    <link rel="manifest" href="./site.webmanifest">
+    <link rel="shortcut icon" href="./favicon.ico">
+    <meta name="theme-color" content="#000000" />
+
+    <link rel="stylesheet" href="style.css?v=20250226">
+    <script defer src="./main.js?v=20250226"></script>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <h1>WordClock {{  context.get("id") }}</h1>
+        </div>
+    </header>
+
+    <section>
+        <div class="container select-color">
+            <h2>Farbe</h2>
+            <input type="color" class="color" name="color" value="{{ context.get("color") }}" />
+            <button type="button" class="primary sendColor">Speichern</button>
+        </div>
+        
+        <div class="container brightness">
+            <h2>Helligkeit</h2>
+
+            <label class="checkbox" for="checkboxAutoBrightness">
+                <input name="auto_brightness" type="checkbox" value="1" id="checkboxAutoBrightness" {% if context.get("config")["auto_brightness"] %}checked{% endif %}>
+                Automatische Helligkeitseinstellung
+            </label>
+            <input type="range" min="0" max="100" value="{{ int(context.get("config")["brightness"]*100) }}" name="brightness">
+
+            <button type="button" class="primary sendBrightness">Speichern</button>
+        </div>
+
+        <div class="container time">
+            <h2>Uhrzeit</h2>
+            <div>
+                <label class="full" for="timezone">Zeitzone:</label>
+                <select name="timezone">
+                    <option value="-12" {% if context.get("config")["tz"] == -12 %}selected{% endif %}>(GMT -12:00) Eniwetok, Kwajalein</option>
+                    <option value="-11" {% if context.get("config")["tz"] == -11 %}selected{% endif %}>(GMT -11:00) Midway Island, Samoa</option>
+                    <option value="-10" {% if context.get("config")["tz"] == -10 %}selected{% endif %}>(GMT -10:00) Hawaii</option>
+                    <option value="-9.5" {% if context.get("config")["tz"] == -9.5 %}selected{% endif %}>(GMT -9:30) Taiohae</option>
+                    <option value="-9" {% if context.get("config")["tz"] == -9 %}selected{% endif %}>(GMT -9:00) Alaska</option>
+                    <option value="-8" {% if context.get("config")["tz"] == -8 %}selected{% endif %}>(GMT -8:00) Pacific Time (US &amp; Canada)</option>
+                    <option value="-7" {% if context.get("config")["tz"] == -7 %}selected{% endif %}>(GMT -7:00) Mountain Time (US &amp; Canada)</option>
+                    <option value="-6" {% if context.get("config")["tz"] == -6 %}selected{% endif %}>(GMT -6:00) Central Time (US &amp; Canada), Mexico City</option>
+                    <option value="-5" {% if context.get("config")["tz"] == -5 %}selected{% endif %}>(GMT -5:00) Eastern Time (US &amp; Canada), Bogota, Lima</option>
+                    <option value="-4.5" {% if context.get("config")["tz"] == -4.5 %}selected{% endif %}>(GMT -4:30) Caracas</option>
+                    <option value="-4" {% if context.get("config")["tz"] == -4 %}selected{% endif %}>(GMT -4:00) Atlantic Time (Canada), Caracas, La Paz</option>
+                    <option value="-3.5" {% if context.get("config")["tz"] == -3.5 %}selected{% endif %}>(GMT -3:30) Newfoundland</option>
+                    <option value="-3" {% if context.get("config")["tz"] == -3 %}selected{% endif %}>(GMT -3:00) Brazil, Buenos Aires, Georgetown</option>
+                    <option value="-2" {% if context.get("config")["tz"] == -2 %}selected{% endif %}>(GMT -2:00) Mid-Atlantic</option>
+                    <option value="-1" {% if context.get("config")["tz"] == -1 %}selected{% endif %}>(GMT -1:00) Azores, Cape Verde Islands</option>
+                    <option value="0" {% if context.get("config")["tz"] == 0 %}selected{% endif %}>(GMT) Western Europe Time, London, Lisbon, Casablanca</option>
+                    <option value="1" {% if context.get("config")["tz"] == 1 %}selected{% endif %}>(GMT +1:00) Berlin, Brussels, Copenhagen, Madrid, Paris</option>
+                    <option value="2" {% if context.get("config")["tz"] == 2 %}selected{% endif %}>(GMT +2:00) Kaliningrad, South Africa</option>
+                    <option value="3" {% if context.get("config")["tz"] == 3 %}selected{% endif %}>(GMT +3:00) Baghdad, Riyadh, Moscow, St. Petersburg</option>
+                    <option value="3.5" {% if context.get("config")["tz"] == 3.5 %}selected{% endif %}>(GMT +3:30) Tehran</option>
+                    <option value="4" {% if context.get("config")["tz"] == 4 %}selected{% endif %}>(GMT +4:00) Abu Dhabi, Muscat, Baku, Tbilisi</option>
+                    <option value="4.5" {% if context.get("config")["tz"] == 4.5 %}selected{% endif %}>(GMT +4:30) Kabul</option>
+                    <option value="5" {% if context.get("config")["tz"] == 5 %}selected{% endif %}>(GMT +5:00) Ekaterinburg, Islamabad, Karachi, Tashkent</option>
+                    <option value="5.5" {% if context.get("config")["tz"] == 5.5 %}selected{% endif %}>(GMT +5:30) Bombay, Calcutta, Madras, New Delhi</option>
+                    <option value="5.75" {% if context.get("config")["tz"] == 5.75 %}selected{% endif %}>(GMT +5:45) Kathmandu, Pokhara</option>
+                    <option value="6" {% if context.get("config")["tz"] == 6 %}selected{% endif %}>(GMT +6:00) Almaty, Dhaka, Colombo</option>
+                    <option value="6.5" {% if context.get("config")["tz"] == 6.5 %}selected{% endif %}>(GMT +6:30) Yangon, Mandalay</option>
+                    <option value="7" {% if context.get("config")["tz"] == 7 %}selected{% endif %}>(GMT +7:00) Bangkok, Hanoi, Jakarta</option>
+                    <option value="8" {% if context.get("config")["tz"] == 8 %}selected{% endif %}>(GMT +8:00) Beijing, Perth, Singapore, Hong Kong</option>
+                    <option value="8.75" {% if context.get("config")["tz"] == 8.75 %}selected{% endif %}>(GMT +8:45) Eucla</option>
+                    <option value="9" {% if context.get("config")["tz"] == 9 %}selected{% endif %}>(GMT +9:00) Tokyo, Seoul, Osaka, Sapporo, Yakutsk</option>
+                    <option value="9.5" {% if context.get("config")["tz"] == 9.5 %}selected{% endif %}>(GMT +9:30) Adelaide, Darwin</option>
+                    <option value="10" {% if context.get("config")["tz"] == 10 %}selected{% endif %}>(GMT +10:00) Eastern Australia, Guam, Vladivostok</option>
+                    <option value="10.5" {% if context.get("config")["tz"] == 10.5 %}selected{% endif %}>(GMT +10:30) Lord Howe Island</option>
+                    <option value="11" {% if context.get("config")["tz"] == 11 %}selected{% endif %}>(GMT +11:00) Magadan, Solomon Islands, New Caledonia</option>
+                    <option value="11.5" {% if context.get("config")["tz"] == 11.5 %}selected{% endif %}>(GMT +11:30) Norfolk Island</option>
+                    <option value="12" {% if context.get("config")["tz"] == 12 %}selected{% endif %}>(GMT +12:00) Auckland, Wellington, Fiji, Kamchatka</option>
+                    <option value="12.75" {% if context.get("config")["tz"] == 12.75 %}selected{% endif %}>(GMT +12:45) Chatham Islands</option>
+                    <option value="13" {% if context.get("config")["tz"] == 13 %}selected{% endif %}>(GMT +13:00) Apia, Nukualofa</option>
+                    <option value="14" {% if context.get("config")["tz"] == 14 %}selected{% endif %}>(GMT +14:00) Line Islands, Tokelau</option>
+                </select>
+            </div>
+            <div>
+                <label class="checkbox" for="checkboxAutoDST">
+                    <input name="auto_dst" type="checkbox" value="1" id="checkboxAutoDST" {% if context.get("config")["auto_dst"] %}checked{% endif %}>
+                    Automatische Zeitumstellung
+                </label>
+            </div>
+            <button type="button" class="primary sendTimezone">Speichern</button>
+        </div>
+
+    </section>
+
+</body>
+
+</html>

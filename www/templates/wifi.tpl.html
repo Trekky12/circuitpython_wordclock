@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>WordClock Controller</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+    <link rel="manifest" href="./site.webmanifest">
+    <link rel="shortcut icon" href="./favicon.ico">
+    <meta name="theme-color" content="#000000" />
+
+    <link rel="stylesheet" href="style.css?v=20250226">
+    <script defer src="./main.js?v=20250226"></script>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <h1>WordClock</h1>
+            <h2>Wi-Fi Setup</h2>
+        </div>
+    </header>
+
+    <section>
+        <div class="container settings">
+            <h2>Settings</h2>
+            <div>
+                <label class="full" for="ssid">Wi-Fi:</label>
+                <select name="ssid">
+                    {% for ssid in context.get("ssid_list") %}
+                    <option value="{% autoescape off %}{{ ssid }}{% endautoescape %}">{{ ssid }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label class="full" for="password">Password:</label>
+                <input type="password" name="password">
+            </div>
+            <button type="button" class="primary connect">Connect</button>
+        </div>
+    </section>
+
+</body>
+
+</html>
